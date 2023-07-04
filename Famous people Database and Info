@@ -1,0 +1,80 @@
+/* Create table about famous people, what they do here and if they are married/paired */
+
+CREATE TABLE Famous_People (id INTEGER PRIMARY KEY,
+first_name TEXT,
+last_name TEXT,
+birthdate TEXT,
+occupation integer);
+
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation) VALUES ("Michael","Newton","01-01-1952",6);
+
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Leonardo", "Dicaprio", "11-11-1974", 1);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Willie", "Nelson", "04-29-1933", 2);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Misty", "Copeland", "09-10-1982", 3);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Doutzen", "Kroes", "01-23-1985", 4);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Jack", "Nicholson", "04-22-1937", 1);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Christoph", "Waltz", "10-04-1956", 1);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Bob", "Fosse", "04-27-1911", 3);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Thom", "Yorke", "10-07-1968", 2);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Kate", "Moss", "01-16-1974", 4);
+INSERT INTO Famous_People (first_name, last_Name, birthdate, occupation)
+VALUES ("Cary", "Grant", "01-18-1904", 5);
+
+
+CREATE TABLE Profession (id INTEGER PRIMARY KEY,
+title TEXT);
+
+INSERT INTO Profession VALUES (1, "Actor");
+INSERT INTO Profession VALUES (2, "Musician");
+INSERT INTO Profession VALUES (3, "Dancer");
+INSERT INTO Profession VALUES (4, "Model");
+INSERT INTO Profession VALUES (5, "Actor");
+INSERT INTO profession VALUES (6,"Author");
+
+CREATE TABLE Famous_pairs (id INTEGER PRIMARY KEY,
+    pairs1_id INTEGER,
+    pairs2_id INTEGER);
+
+INSERT INTO Famous_pairs (pairs1_id, pairs2_id)
+    VALUES(1, 2);
+INSERT INTO Famous_pairs (pairs1_id, pairs2_id)
+    VALUES(3, 4);
+
+
+/*What are the occupations of famous people?*/
+
+SELECT fp.first_Name, fp.last_Name, p.title 
+FROM Famous_People AS fp
+JOIN Profession AS p
+ON FP.occupation = P.id;
+
+/*To whom are they married/paired?*/
+
+SELECT a.first_name, a.last_name, b.first_name, b.last_name
+FROM Famous_Pairs
+JOIN Famous_People AS a 
+ON Famous_Pairs.pairs1_id = a.id
+JOIN Famous_People AS b 
+ON Famous_Pairs.pairs2_id = b.id;
+
+/*To whom are they married/paired and what are their occupation?*/
+
+SELECT a.first_name, a.last_name,ap.title, b.first_name, b.last_name,bp.title
+FROM Famous_Pairs
+JOIN Famous_People AS a 
+ON Famous_Pairs.pairs1_id = a.id
+JOIN Famous_People AS b 
+ON Famous_Pairs.pairs2_id = b.id
+JOIN Profession AS ap
+ON a.occupation = ap.id
+JOIN profession AS bp
+ON b.occupation = bp.id;
